@@ -1,10 +1,9 @@
-# 第1章 JavaScript语言概述
-
-Javascript是一种解释性的，基于对象的脚本语言(an interpreted, object-based scripting language)。HTML网页在互动性方面能力较弱，例如下拉菜单，就是用户点击某一菜单项时，自动会出现该菜单项的所有子菜单，用纯HTML网页无法实现；又如验证HTML表单(Form)提交信息的有效性，用户名不能为空，密码不能少于4位，邮政编码只能是数字之类，用纯HTML网页也无法实现。要实现这些功能，就需要用到Javascript。## 1.1 JavaScript简史
+# 第1章 JavaScript语言概述## 1.1 JavaScript简史
 Javascript是一种解释性的，基于对象的脚本语言(an interpreted, object-based scripting language)。HTML网页在互动性方面能力较弱，例如下拉菜单，就是用户点击某一菜单项时，自动会出现该菜单项的所有子菜单，用纯HTML网页无法实现；又如验证HTML表单(Form)提交信息的有效性，用户名不能为空，密码不能少于4位，邮政编码只能是数字之类，用纯HTML网页也无法实现。要实现这些功能，就需要用到Javascript。1995 年Netscape 公司和Sun 公司联合开发出JavaScript 脚本语言，并在其NetscapeNavigator 2 中实现了JavaScript 脚本规范的第一个版本即JavaScript 1.0 版，不久就显示了其强大的生机和发展潜力。由于当时Netscape Navigator 主宰着Web 浏览器市场，而Microsoft的IE 则扮演追赶者的角色，为了跟上Netscape 步伐，Microsoft 在其Internet Explorer 3 中以JScript 为名发布了一个JavaScript 的克隆版本JScript 1.0。1997 年，为了避免无序竞争，同时解决JavaScript 几个版本语法、特性等方面的混乱，JavaScript 1.1 作为草案提交给ECMA（欧洲计算机厂商协会），并由Netscape、Sun、Microsoft、Borland 及其它一些对脚本语言比较感兴趣的公司组成的TC39（第39 技术委员会：以下简称TC39）协商并推出了ECMA-262 规范版本，其定义了以JavaScript 为蓝本、全新的ECMAScript 脚本语言。
 
-在接下来的几年，ISO/IEC（估计标准化组织/国际电工委员会）采纳ECMAScript 作为Web 脚本语言标准（ISO/IEC-16262）。从此，ECMAScript 作为JavaScript 脚本的基础开始得到越来越多的浏览器厂商在不同程度上支持。## 1.2 ECMAScript 和 JavaScript 的关系
-一个常见的问题是，ECMAScript 和 JavaScript 到底是什么关系？
+在接下来的几年，ISO/IEC（估计标准化组织/国际电工委员会）采纳ECMAScript 作为Web 脚本语言标准（ISO/IEC-16262）。从此，ECMAScript 作为JavaScript 脚本的基础开始得到越来越多的浏览器厂商在不同程度上支持。
+
+2009年5月，由Ryan Dahl开发的Nodejs环境开源。Node.js是一个Javascript运行环境(runtime)，实质是对Chrome V8引擎进行了封装。V8引擎本身使用了一些最新的编译技术。这使得用Javascript这类脚本语言编写出来的代码运行速度获得了极大提升，又节省了开发成本。Nodejs出现，让JavaScript不仅可以在浏览器上运行，还可以在服务端进行开发。一个常见的问题是，ECMAScript 和 JavaScript 到底是什么关系？
 
 要讲清楚这个问题，需要回顾历史。1996年11月，JavaScript 的创造者 Netscape 公司，决定将 JavaScript 提交给国际标准化组织ECMA，希望这种语言能够成为国际标准。次年，ECMA 发布262号标准文件（ECMA-262）的第一版，规定了浏览器脚本语言的标准，并将这种语言称为 ECMAScript，这个版本就是1.0版。
 
@@ -12,7 +11,6 @@ Javascript是一种解释性的，基于对象的脚本语言(an interpreted, ob
 
 因此，ECMAScript 和 JavaScript 的关系是，前者是后者的规格，后者是前者的一种实现（另外的 ECMAScript 方言还有 Jscript 和 ActionScript）。日常场合，这两个词是可以互换的。
 
-## 1.3 ES6 与 ECMAScript 2015 的关系
 ECMAScript 2015（简称 ES2015）这个词，也是经常可以看到的。它与 ES6 是什么关系呢？
 
 2011年，ECMAScript 5.1版发布后，就开始制定6.0版了。因此，ES6 这个词的原意，就是指 JavaScript 语言的下一个版本。
@@ -27,7 +25,6 @@ ES6 的第一个版本，就这样在2015年6月发布了，正式名称就是�
 
 因此，ES6 既是一个历史名词，也是一个泛指，含义是5.1版以后的 JavaScript 的下一代标准，涵盖了ES2015、ES2016、ES2017等等，而ES2015 则是正式名称，特指该年发布的正式版本的语言标准。本书中提到 ES6 的地方，一般是指 ES2015 标准，但有时也是泛指“下一代 JavaScript 语言”。
 
-## 1.4 ECMAScript 的历史
 ES6 从开始制定到最后发布，整整用了15年。
 
 前面提到，ECMAScript 1.0 是1997年发布的，接下来的两年，连续发布了 ECMAScript 2.0（1998年6月）和 ECMAScript 3.0（1999年12月）。3.0版是一个巨大的成功，在业界得到广泛支持，成为通行标准，奠定了 JavaScript 语言的基本语法，以后的版本完全继承。直到今天，初学者一开始学习 JavaScript，其实就是在学3.0版的语法。
@@ -50,7 +47,6 @@ ES6 从开始制定到最后发布，整整用了15年。
 
 2015年6月，ECMAScript 6 正式通过，成为国际标准。从2000年算起，这时已经过去了15年。
 
-## 1.5 部署进度
 各大浏览器的最新版本，对 ES6 的支持可以查看kangax.github.io/es5-compat-table/es6/。随着时间的推移，支持度已经越来越高了，超过90%的 ES6 语法特性都实现了。
 
 Node 是 JavaScript 的服务器运行环境（runtime）。它对 ES6 的支持度更高。除了那些默认打开的功能，还有一些语法功能已经实现了，但是默认没有打开。使用下面的命令，可以查看 Node 已经实现的 ES6 特性。
@@ -73,7 +69,6 @@ Your runtime supports 57% of ECMAScript 6
 =========================================
 ```
 
-## 1.6 Babel 转码器
 
 Babel 是一个广泛使用的 ES6 转码器，可以将 ES6 代码转为 ES5 代码，从而在现有环境执行。这意味着，你可以用 ES6 的方式编写程序，又不用担心现有环境是否支持。下面是一个例子。
 
@@ -88,11 +83,11 @@ input.map(function (item) {
 ```
 上面的原始代码用了箭头函数，Babel 将其转为普通函数，就能在不支持箭头函数的 JavaScript 环境执行了。
 
-## 1.7 开发环境构建
+## 1.2 开发环境
 
-在本书的开发环境中，所有代码和语法都基于ES6语言版本，运行环境为Nodejs。
+在本书的开发环境中，所有代码和语法都基于ES6语言版本，运行环境为Node6.9.1。
 
-### 1.7.1 安装Nodejs环境
+### 1.2.1 安装Nodejs环境
 进入Nodejs中文官网[http://nodejs.cn](http://nodejs.cn)选择下载标签，下载与自己系统相对应的安装包，双击运行安装
 
 ![图片1](./images/1.png)
@@ -102,10 +97,12 @@ input.map(function (item) {
 安装完成之后我们需要检验一下安装是否成功
 
 在命令行输入`node -v`，命令行会打印当前node的版本号，大家的版本高于我即可。
+
 ![图片2](./images/2.png)
+
 看到node版本号，即认为安装成功
 
-### 1.7.2 NPM
+### 1.2.2 NPM
 在安装node的同时，npm也一起被安装上。npm是node工程包的管理工具，最常用的功能是按照各种项目依赖和各种小工具。
 
 在命令行输入`npm -v`，命令行会打印当前npm版本号，大家的版本高于我即可。
@@ -126,7 +123,7 @@ npm config get registry
 如输出`https://registry.npm.taobao.org/`表示更换成功
 ![图片4](./images/4.png)
 
-### 1.7.3 通过NPM安装babel-cli
+### 1.2.3 通过NPM安装babel-cli
 
 Babel是一个JavaScript转码的工具，可以将ES6的语法转换为普通js代码，以便其在为支持ES6的环境下运行，当前node和浏览器并不能完全支持ES6的所有特性，但是用ES6开发可以极大的提高效率，所有我们任然选择ES6作为开发语言，然后是用Babel对其进行转码。
 
@@ -139,7 +136,7 @@ npm install babel-cli -g
 `babel-cli`是工具名，`-g`表示全局安装，意思是在任何地方都可以使用这个工具，如果不加`-g`就表示只安装在当前目录，而且只能在当前目录使用此工具。一般工具类我们都选择全局安装，而项目依赖我们都局部安装。
 ![图片5](./images/5.png)
 
-## 1.8 第一个JavaScript程序
+## 1.3 第一个JavaScript程序
 
 创建一个文件夹作为工程目录
 
@@ -182,6 +179,12 @@ npm install --save babel-preset-es2015 babel-preset-stage-0
 
 安装完成之后，我们发现，工程文件夹中多了一个`node_modules`文件夹，文件夹中有很多文件，这个文件夹就是装载项目依赖的地方，刚才通过npm指令安装的工具代码就存放在此。
 
+在向工程中添加`scanf`数据输入支持：
+
+```
+npm install scanf --save
+```
+
 ![图片10](./images/10.png)
 
 此时在查看`package.json`发现其内容变为
@@ -199,7 +202,8 @@ npm install --save babel-preset-es2015 babel-preset-stage-0
   "license": "ISC",
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1"
+    "babel-preset-stage-0": "^6.24.1",
+    "scanf": "^1.0.0"
   }
 }
 

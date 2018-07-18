@@ -1,4 +1,4 @@
-# 第3章 JavaScript数据类型和变量
+# 第3章 JavaScript数据
 
 ## 3.1 数据类型
 
@@ -11,6 +11,7 @@
 * Boolean：布尔值和布尔代数的表示完全一致，一个布尔值只有true、false两种值。
 * Object：对象是一组由键-值组成的无序集合
 * 空值：什么也没有，用`null`表示
+* Symbo：表示独一无二的值
 
 ### 3.1.1 Number
 
@@ -76,13 +77,160 @@ JavaScript的对象是一组由键-值组成的无序集合，例如：
 
 JavaScript对象的键都是字符串类型，值可以是任意数据类型。上述person对象一共定义了6个键值对，其中每个键又称为对象的属性。
 
-### 空值
+### 3.1.5 空值
 
 `null`表示一个“空”的值，它和`0`以及空字符串`''`不同，`0`是一个数值，`''`表示长度为0的字符串，而`null`表示“空”。
 
 在其他语言中，也有类似JavaScript的`null`的表示，例如Java也用`null`，Swift用`nil`，Python用`None`表示。但是，在JavaScript中，还有一个和`null`类似的`undefined`，它表示“未定义”。
 
 JavaScript的设计者希望用`null`表示一个空的值，而`undefined`表示值未定义。事实证明，区分两者的意义不大。大多数情况下，我们都应该用`null`。`undefined`仅仅在判断函数参数是否传递的情况下有用。
+
+### 3.1.6 Symbol值
+
+ES6 引入了一种新的原始数据类型`Symbol`，表示独一无二的值。它是 JavaScript 语言的基本数据类型。
+
+Symbol 值通过`Symbol`函数生成。这就是说，对象的属性名现在可以有两种类型，一种是原来就有的字符串，另一种就是新增的 Symbol 类型。凡是属性名属于 Symbol 类型，就都是独一无二的，可以保证不会与其他属性名产生冲突。
+
+```javascript
+let s = Symbol();
+
+typeof s
+// "symbol"
+```
+
+上面代码中，变量`s`就是一个独一无二的值。`typeof`运算符的结果，表明变量`s`是 Symbol 数据类型，而不是字符串之类的其他类型。
+
+注意，`Symbol`函数前不能使用`new`命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。
+
+`Symbol`函数可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。
+
+```javascript
+let s1 = Symbol('a');
+let s2 = Symbol('b');
+
+s1 // Symbol(a)
+s2 // Symbol(b)
+
+s1.toString() // "Symbol(a)"
+s2.toString() // "Symbol(b)"
+```
+
+上面代码中，`s1`和`s2`是两个 Symbol 值。如果不加参数，它们在控制台的输出都是`Symbol()`，不利于区分。有了参数以后，就等于为它们加上了描述，输出的时候就能够分清，到底是哪一个值。
+
+如果 Symbol 的参数是一个对象，就会调用该对象的`toString`方法，将其转为字符串，然后才生成一个 Symbol 值。
+
+```javascript
+const obj = {
+  toString() {
+    return 'abc';
+  }
+};
+const s = Symbol(obj);
+s // Symbol(abc)
+```
+
+注意，`Symbol`函数的参数只是表示对当前 Symbol 值的描述，因此相同参数的`Symbol`函数的返回值是不相等的。
+
+```javascript
+// 没有参数的情况
+let s1 = Symbol();
+let s2 = Symbol();
+
+s1 === s2 // false
+
+// 有参数的情况
+let s1 = Symbol('foo');
+let s2 = Symbol('foo');
+
+s1 === s2 // false
+```
+
+上面代码中，`s1`和`s2`都是`Symbol`函数的返回值，而且参数相同，但是它们是不相等的。
+
+Symbol 值不能与其他类型的值进行运算，会报错。
+
+```javascript
+let sym = Symbol('My symbol');
+
+"your symbol is " + sym
+// TypeError: can't convert symbol to string
+`your symbol is ${sym}`
+// TypeError: can't convert symbol to string
+```
+
+但是，Symbol 值可以显式转为字符串。
+
+```javascript
+let sym = Symbol('My symbol');
+
+String(sym) // 'Symbol(My symbol)'
+sym.toString() // 'Symbol(My symbol)'
+```
+
+另外，Symbol 值也可以转为布尔值，但是不能转为数值。
+
+```javascript
+let sym = Symbol();
+Boolean(sym) // true
+!sym  // false
+
+if (sym) {
+  // ...
+}
+
+Number(sym) // TypeError
+sym + 2 // TypeError
+```
+
+有时，我们希望重新使用同一个 Symbol 值，`Symbol.for`方法可以做到这一点。它接受一个字符串作为参数，然后搜索有没有以该参数作为名称的Symbol值。如果有，就返回这个 Symbol 值，否则就新建并返回一个以该字符串为名称的 Symbol 值。
+
+```javascript
+let s1 = Symbol.for('foo');
+let s2 = Symbol.for('foo');
+
+s1 === s2 // true
+```
+
+上面代码中，`s1`和`s2`都是 Symbol 值，但是它们都是同样参数的`Symbol.for`方法生成的，所以实际上是同一个值。
+
+`Symbol.for()`与`Symbol()`这两种写法，都会生成新的 Symbol。它们的区别是，前者会被登记在全局环境中供搜索，后者不会。`Symbol.for()`不会每次调用就返回一个新的 Symbol 类型的值，而是会先检查给定的`key`是否已经存在，如果不存在才会新建一个值。比如，如果你调用`Symbol.for("cat")`30次，每次都会返回同一个 Symbol 值，但是调用`Symbol("cat")`30次，会返回30个不同的 Symbol 值。
+
+```javascript
+Symbol.for("bar") === Symbol.for("bar")
+// true
+
+Symbol("bar") === Symbol("bar")
+// false
+```
+
+上面代码中，由于`Symbol()`写法没有登记机制，所以每次调用都会返回一个不同的值。
+
+`Symbol.keyFor`方法返回一个已登记的 Symbol 类型值的`key`。
+
+```javascript
+let s1 = Symbol.for("foo");
+Symbol.keyFor(s1) // "foo"
+
+let s2 = Symbol("foo");
+Symbol.keyFor(s2) // undefined
+```
+
+上面代码中，变量`s2`属于未登记的 Symbol 值，所以返回`undefined`。
+
+需要注意的是，`Symbol.for`为 Symbol 值登记的名字，是全局环境的，可以在不同的 iframe 或 service worker 中取到同一个值。
+
+```javascript
+iframe = document.createElement('iframe');
+iframe.src = String(window.location);
+document.body.appendChild(iframe);
+
+iframe.contentWindow.Symbol.for('foo') === Symbol.for('foo')
+// true
+```
+
+上面代码中，iframe 窗口生成的 Symbol 值，可以在主页面得到。
+
+
 
 ## 3.2 变量
 
@@ -258,3 +406,41 @@ const per = {
 
 func1(per);
 ```
+
+## 3.3 数据交互
+
+### 数据控制台输出
+
+`console.log()`可以将数据在控制台进行输出，其用法非常简单。
+
+```
+console.log(123);
+console.log('Tom');
+
+const name = 'Tom';
+console.log(name);
+```
+
+### 数据控制台输入
+
+在调试程序或编写算法等非界面应用时，经常需要从控制台输入数据实现数据交互。
+
+nodejs环境本身不支持控制台数据输入，但社区中有人仿照C语言的`scanf`函数实现了nodejs中的阻塞输入。
+
+```
+import scanf from 'scanf';
+
+console.log('请输入名字');
+const name = scanf('%s');
+console.log(name);
+```
+
+目前输入支持如下格式：
+
+* %d - 整数
+* %f - 浮点数
+* %s - 字符串
+* %S - 字符串（匹配处开始往后一整行）
+* %x - 十六进制数字
+* %o - 八进制数字
+
